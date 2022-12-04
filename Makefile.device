@@ -1,0 +1,18 @@
+# Remark: Disable APP_CLOCK_SYNC since periph_rtc is not a FEATURES_REQUIRED for BOARD = lora-e5-dev
+APP_CLOCK_SYNC = 0
+APP_TIME_REQ_PERIOD = 50
+
+#BMX280 = 1
+#PMS7003 = 1
+
+OTAA = 1
+LORAMAC_JOIN_MIN_DATARATE ?= 0
+TX_POWER ?= 14
+
+# Remark: TXPERIOD @ DR5 is TXPERIOD_AT_DR0 >> 5
+TXPERIOD_AT_DR0 ?= 180
+
+# TXCNF ?= true
+
+DATA_PORT ?= 101
+
