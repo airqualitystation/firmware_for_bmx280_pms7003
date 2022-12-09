@@ -267,6 +267,11 @@ APP_TIME_REQ_PERIOD ?= 50
 endif
 CFLAGS += -DAPP_TIME_REQ_PERIOD=$(APP_TIME_REQ_PERIOD)
 
+# guard since the sender thread can be stuck into the semtech_loramac_send call
 CFLAGS += -DGUARD_SENDER_WAKEUP=1
+CFLAGS += -DGUARD_SENDER_CHECK_PERIOD_S=10
+CFLAGS += -DGUARD_SENDER_TIMEOUT_MS=60000
+
+
 
 include $(RIOTBASE)/Makefile.include

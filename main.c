@@ -105,7 +105,7 @@ static uint16_t tx_period = TX_PERIOD;
 
 #if GUARD_SENDER_WAKEUP == 1
 
-// Add a guard since the sender thread is stuck into the semtech_loramac_send call
+// Add a guard since the sender thread can be stuck into the semtech_loramac_send call
 
 // TODO add a loramac_utils_guarded_semtech_loramac_send
 
@@ -122,7 +122,7 @@ static bool _wakeup_sender_cb(void *arg)
     if(start_time != 0)
     {
     	ztimer_now_t delta = ztimer_now(ZTIMER_MSEC) - start_time;
-        if(delta > 60000)
+        if(delta > GUARD_SENDER_TIMEOUT_MS)
         {
             DEBUG("[%s] timeout after %ld ms\n", __FUNCTION__, delta);
 #if 0
@@ -143,7 +143,7 @@ static bool _wakeup_sender_cb(void *arg)
 static int wakeup_sender_ztimer(void) {
 
 	// check the guard every 10 seconds
-    ztimer_periodic_init(ZTIMER_SEC, &_wakeup_sender_ztimer, _wakeup_sender_cb, (void*)NULL, 10);
+    ztimer_periodic_init(ZTIMER_SEC, &_wakeup_sender_ztimer, _wakeup_sender_cb, (void*)NULL, GUARD_SENDER_CHECK_PERIOD_S);
     ztimer_periodic_start(&_wakeup_sender_ztimer);
 
     if (!ztimer_is_set(ZTIMER_SEC, &_wakeup_sender_ztimer.timer)) {
