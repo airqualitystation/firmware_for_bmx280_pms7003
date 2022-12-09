@@ -136,11 +136,16 @@ Javascript decoder for main LNS is [codec/decoder.js](codec/decoder.js)
 * [ ] add GPIO for resetting the PMS7003 (pin RST) : `PA9` or `PB10`
 * [ ] fix RTC sync
 
+## Misc
 
-## Basic test
-
+### Basic test
 ```bash
 cd ~/github/RIOT-OS/RIOT
 cd tests/pkg_semtech-loramac
 BOARD=lora-e5-dev LORA_DRIVER=sx126x_stm32wl gmake -j 16 clean flash
 ```
+
+### Debugging `semtech-loramac` stack
+
+Set `#define ENABLE_DEBUG 1` into the files `~/github/RIOT-OS/RIOT/pkg/semtech-loramac/contrib/semtech_loramac*.c`
+
